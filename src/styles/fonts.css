@@ -1,6 +1,14 @@
 @font-face {
   font-family: 'ULTRUS';
-  src: url('../assets/fonts/UL-Moderat-Variable.woff2') format('woff2');
+  src: url('../assets/fonts/ul-moderat-variable.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ULTRUS Mono';
+  src: url('../assets/fonts/ul-moderat-mono-variable.woff2') format('woff2');
   font-style: normal;
   font-weight: 100 900;
   font-display: swap;

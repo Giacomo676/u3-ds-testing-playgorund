@@ -5,6 +5,35 @@ import { ThemeProvider } from '@mui/material/styles'
 import { theme } from '../src/theme/theme'
 import '../src/index.css'
 
+const ultrusViewports = {
+  mobile: {
+    name: 'ULTRUS Mobile',
+    styles: {
+      width: '390px',
+      height: '844px',
+    },
+    type: 'mobile',
+  },
+
+  tablet: {
+    name: 'ULTRUS Tablet',
+    styles: {
+      width: '768px',
+      height: '1024px',
+    },
+    type: 'tablet',
+  },
+
+  desktop: {
+    name: 'ULTRUS Desktop',
+    styles: {
+      width: '1440px',
+      height: '900px',
+    },
+    type: 'desktop',
+  },
+}
+
 const preview: Preview = {
   decorators: [
     (Story) => (
@@ -16,6 +45,16 @@ const preview: Preview = {
   ],
 
   parameters: {
+    viewport: {
+      options: ultrusViewports,
+    },
+
+    options: {
+      storySort: {
+        order: ['Example', 'Foundations', 'MUI', '*'],
+      },
+    },
+
     controls: {
       matchers: {
         color: /(background|color)$/i,

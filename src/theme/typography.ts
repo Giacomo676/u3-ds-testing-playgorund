@@ -111,14 +111,14 @@ export const typographyTokens = {
     fontWeight: 400,
   },
 
-  legal400: {
+  legalRegular: {
     fontSize: '0.75rem',
     lineHeight: '1rem',
     letterSpacing: '0.025rem',
     fontWeight: 400,
   },
 
-  legal500: {
+  legalBold: {
     fontSize: '0.75rem',
     lineHeight: '1rem',
     letterSpacing: '0.025rem',
