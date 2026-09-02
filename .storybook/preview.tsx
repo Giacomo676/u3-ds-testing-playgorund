@@ -2,8 +2,11 @@ import type { Preview } from '@storybook/react-vite'
 import { CssBaseline } from '@mui/material'
 import { ThemeProvider } from '@mui/material/styles'
 
+import { loadMaterialSymbols } from '../src/icons/loadMaterialSymbols'
 import { theme } from '../src/theme/theme'
 import '../src/index.css'
+
+loadMaterialSymbols()
 
 const ultrusViewports = {
   mobile: {
@@ -51,7 +54,30 @@ const preview: Preview = {
 
     options: {
       storySort: {
-        order: ['Example', 'Foundations', 'MUI', '*'],
+        order: [
+          'Example',
+
+          'Foundations',
+          [
+            'Typography',
+            'Colors',
+            'Shape',
+            'Icons',
+            '*',
+          ],
+
+          'Components',
+          [
+            'Button',
+            'Icon Button',
+            'Select',
+            '*',
+          ],
+
+          'MUI',
+
+          '*',
+        ],
       },
     },
 

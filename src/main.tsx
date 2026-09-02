@@ -5,7 +5,10 @@ import { ThemeProvider } from '@mui/material/styles'
 
 import './index.css'
 import App from './App.tsx'
+import { loadMaterialSymbols } from './icons/loadMaterialSymbols'
 import { theme } from './theme/theme'
+
+loadMaterialSymbols()
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
