@@ -1,13 +1,32 @@
-import { createTheme } from '@mui/material/styles'
 import { buttonClasses } from '@mui/material/Button'
+import { createTheme } from '@mui/material/styles'
 
 import { designSystemConfig } from './config'
 import { semanticColors } from './semanticColors'
 import { radius } from './shape'
+import { spacing } from './spacing'
 import {
   fontFamilies,
   typographyTokens,
 } from './typography'
+
+/**
+ * ULTRUS / MUI spacing
+ *
+ * Preserves MUI's standard 8px spacing factor,
+ * but outputs scalable rem values.
+ *
+ * Examples:
+ *
+ * theme.spacing(0.25) → 0.125rem → 2px
+ * theme.spacing(0.5)  → 0.25rem  → 4px
+ * theme.spacing(1)    → 0.5rem   → 8px
+ * theme.spacing(2)    → 1rem     → 16px
+ * theme.spacing(3)    → 1.5rem   → 24px
+ * theme.spacing(4)    → 2rem     → 32px
+ */
+const muiSpacing = (factor: number) =>
+  `${factor * 0.5}rem`
 
 export const theme = createTheme({
   cssVariables: {
@@ -123,6 +142,12 @@ export const theme = createTheme({
     },
   },
 
+  /**
+   * MUI's normal 8px spacing system is retained,
+   * but expressed in rem.
+   */
+  spacing: muiSpacing,
+
   typography: {
     fontFamily: fontFamilies.primary,
 
@@ -177,6 +202,10 @@ export const theme = createTheme({
     },
   },
 
+  /**
+   * MUI expects its base shape value as a number.
+   * ULTRUS component radius tokens live in shape.ts.
+   */
   shape: {
     borderRadius: 8,
   },
@@ -184,6 +213,9 @@ export const theme = createTheme({
   components: {
     /**
      * Global interaction behaviour.
+     *
+     * Ripple is controlled from:
+     * src/theme/config.ts
      */
     MuiButtonBase: {
       defaultProps: {
@@ -194,6 +226,12 @@ export const theme = createTheme({
 
     /**
      * Global ULTRUS Icon configuration.
+     *
+     * Material Symbols Rounded
+     * Fill: 0
+     * Weight: 200
+     * Grade: 0
+     * Optical size: 24
      */
     MuiIcon: {
       defaultProps: {
@@ -209,9 +247,9 @@ export const theme = createTheme({
           fontVariationSettings:
             "'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24",
 
-          fontSize: '24px',
-          width: '24px',
-          height: '24px',
+          fontSize: '1.5rem',
+          width: '1.5rem',
+          height: '1.5rem',
 
           lineHeight: 1,
           flexShrink: 0,
@@ -221,6 +259,12 @@ export const theme = createTheme({
 
     /**
      * Global ULTRUS Button configuration.
+     *
+     * Enabled  → no elevation
+     * Hover    → Elevation 7
+     * Pressed  → no elevation
+     * Disabled → no elevation
+     * Loading  → no elevation
      */
     MuiButton: {
       styleOverrides: {
@@ -228,13 +272,7 @@ export const theme = createTheme({
           borderRadius: radius.full,
 
           /**
-           * Elevation
-           *
-           * Enabled  → none
-           * Hover    → Elevation 7
-           * Pressed  → none
-           * Disabled → none
-           * Loading  → none
+           * Global elevation behaviour.
            */
           boxShadow: 'none',
 
@@ -256,6 +294,8 @@ export const theme = createTheme({
 
           /**
            * Global keyboard focus.
+           *
+           * Fine visual strokes remain px-based.
            */
           '&.Mui-focusVisible, &:focus-visible': {
             outline:
@@ -293,9 +333,8 @@ export const theme = createTheme({
             },
 
             /**
-             * Loading:
-             * functionally disabled,
-             * visually Enabled.
+             * Loading is functionally disabled,
+             * but visually retains Enabled styling.
              */
             [`&.${buttonClasses.loading}.${buttonClasses.disabled}`]: {
               color:
@@ -350,11 +389,6 @@ export const theme = createTheme({
                 semanticColors.light.button.disabled.background,
             },
 
-            /**
-             * Loading:
-             * functionally disabled,
-             * visually Enabled.
-             */
             [`&.${buttonClasses.loading}.${buttonClasses.disabled}`]: {
               color:
                 semanticColors.light.button.outlined.foreground,
@@ -370,6 +404,9 @@ export const theme = createTheme({
 
           /**
            * TEXT
+           *
+           * Transparent in interactive states
+           * except Disabled.
            */
           [`&.${buttonClasses.text}.${buttonClasses.colorPrimary}`]: {
             color:
@@ -402,11 +439,6 @@ export const theme = createTheme({
                 semanticColors.light.button.disabled.background,
             },
 
-            /**
-             * Loading:
-             * functionally disabled,
-             * visually Enabled.
-             */
             [`&.${buttonClasses.loading}.${buttonClasses.disabled}`]: {
               color:
                 semanticColors.light.button.text.foreground,
@@ -422,9 +454,7 @@ export const theme = createTheme({
            * DESTRUCTIVE
            *
            * UltrusButton maps:
-           * destructive
-           * →
-           * outlined + error
+           * destructive → outlined + error
            */
           [`&.${buttonClasses.outlined}.${buttonClasses.colorError}`]: {
             color:
@@ -465,11 +495,6 @@ export const theme = createTheme({
                 semanticColors.light.button.disabled.background,
             },
 
-            /**
-             * Loading:
-             * functionally disabled,
-             * visually Enabled.
-             */
             [`&.${buttonClasses.loading}.${buttonClasses.disabled}`]: {
               color:
                 semanticColors.light.button.destructive.foreground,
@@ -690,57 +715,75 @@ export const theme = createTheme({
 
         /**
          * Large
+         *
+         * 44px → 2.75rem
+         * 16px / 28px → 1rem / 1.75rem
          */
         sizeLarge: {
-          height: '44px',
+          height: '2.75rem',
           fontSize: '1rem',
           lineHeight: '1.75rem',
         },
 
         /**
          * Medium
+         *
+         * 40px → 2.5rem
+         * 14px / 24px → 0.875rem / 1.5rem
          */
         sizeMedium: {
-          height: '40px',
+          height: '2.5rem',
           fontSize: '0.875rem',
           lineHeight: '1.5rem',
         },
 
         /**
          * Small
+         *
+         * 32px → 2rem
+         * 12px / 24px → 0.75rem / 1.5rem
          */
         sizeSmall: {
-          height: '32px',
+          height: '2rem',
           fontSize: '0.75rem',
           lineHeight: '1.5rem',
         },
 
         /**
-         * Normal ULTRUS icons.
+         * Start icon
+         *
+         * ULTRUS spacing token:
+         * spacing[4] → 0.25rem → 4px
          */
-       startIcon: {
-        marginRight: '4px',
+        startIcon: {
+          marginRight: spacing[4],
 
-        '& > *:nth-of-type(1)': {
-          fontSize: '24px',
-          width: '24px',
-          height: '24px',
+          '& > *:nth-of-type(1)': {
+            fontSize: '1.5rem',
+            width: '1.5rem',
+            height: '1.5rem',
+          },
         },
-      },
-
-        endIcon: {
-          marginLeft: '4px',
-
-        '& > *:nth-of-type(1)': {
-          fontSize: '24px',
-          width: '24px',
-          height: '24px',
-        },
-      },
 
         /**
-         * MUI's loading indicator uses
-         * CircularProgress color="inherit".
+         * End icon
+         *
+         * ULTRUS spacing token:
+         * spacing[4] → 0.25rem → 4px
+         */
+        endIcon: {
+          marginLeft: spacing[4],
+
+          '& > *:nth-of-type(1)': {
+            fontSize: '1.5rem',
+            width: '1.5rem',
+            height: '1.5rem',
+          },
+        },
+
+        /**
+         * MUI CircularProgress loading indicator
+         * inherits the Button foreground colour.
          */
         loadingIndicator: {
           color: 'inherit',

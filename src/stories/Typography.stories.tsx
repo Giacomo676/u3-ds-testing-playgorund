@@ -1,10 +1,21 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import type { ComponentProps, ReactNode } from 'react'
+
+import {
+  Controls,
+  Description,
+  Primary,
+  Stories,
+  Title,
+} from '@storybook/addon-docs/blocks'
+
+import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 
 import { typographyTokens } from '../theme/typography'
 
-type MuiTypographyProps = ComponentProps<typeof Typography>
+type MuiTypographyProps =
+  ComponentProps<typeof Typography>
 
 type TypographyStyle =
   | 'h1'
@@ -51,11 +62,26 @@ const meta = {
 
   parameters: {
     layout: 'padded',
+
+    docs: {
+      page: () => (
+        <>
+          <Title />
+          <Description />
+          <Primary />
+          <Controls />
+          <Stories includePrimary={false} />
+        </>
+      ),
+    },
   },
+
+  tags: ['autodocs'],
 
   args: {
     style: 'body1',
-    children: 'The quick brown fox jumps over the lazy dog.',
+    children:
+      'The quick brown fox jumps over the lazy dog.',
     align: 'inherit',
     color: 'text.primary',
     gutterBottom: false,
@@ -124,7 +150,10 @@ const meta = {
       noWrap,
     }
 
-    if (style === 'legalRegular' || style === 'legalBold') {
+    if (
+      style === 'legalRegular' ||
+      style === 'legalBold'
+    ) {
       return (
         <Typography
           {...commonProps}
@@ -150,118 +179,220 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 
-export const H1: Story = {
-  name: 'h1',
-  args: {
-    style: 'h1',
-    children: 'The H1 Heading',
+/**
+ * Shared label used on the left-hand side
+ * of the grouped typography examples.
+ */
+function StyleLabel({
+  children,
+}: {
+  children: ReactNode
+}) {
+  return (
+    <Typography
+      variant="body2"
+      color="text.secondary"
+      sx={{
+        width: '7rem',
+        flexShrink: 0,
+      }}
+    >
+      {children}
+    </Typography>
+  )
+}
+
+/**
+ * HEADINGS
+ */
+export const Headings: Story = {
+  render: () => {
+    const headings = [
+      ['h1', 'The H1 Heading'],
+      ['h2', 'The H2 Heading'],
+      ['h3', 'The H3 Heading'],
+      ['h4', 'The H4 Heading'],
+      ['h5', 'The H5 Heading'],
+      ['h6', 'The H6 Heading'],
+    ] as const
+
+    return (
+      <Stack spacing={3}>
+        {headings.map(([variant, label]) => (
+          <Stack
+            key={variant}
+            direction="row"
+            spacing={3}
+            alignItems="baseline"
+          >
+            <StyleLabel>
+              {variant}
+            </StyleLabel>
+
+            <Typography variant={variant}>
+              {label}
+            </Typography>
+          </Stack>
+        ))}
+      </Stack>
+    )
   },
 }
 
-export const H2: Story = {
-  name: 'h2',
-  args: {
-    style: 'h2',
-    children: 'The H2 Heading',
-  },
+/**
+ * SUBTITLES
+ */
+export const Subtitles: Story = {
+  render: () => (
+    <Stack spacing={3}>
+      <Stack
+        direction="row"
+        spacing={3}
+        alignItems="baseline"
+      >
+        <StyleLabel>
+          subtitle1
+        </StyleLabel>
+
+        <Typography variant="subtitle1">
+          Subtitle 1
+        </Typography>
+      </Stack>
+
+      <Stack
+        direction="row"
+        spacing={3}
+        alignItems="baseline"
+      >
+        <StyleLabel>
+          subtitle2
+        </StyleLabel>
+
+        <Typography variant="subtitle2">
+          Subtitle 2
+        </Typography>
+      </Stack>
+    </Stack>
+  ),
 }
 
-export const H3: Story = {
-  name: 'h3',
-  args: {
-    style: 'h3',
-    children: 'The H3 Heading',
-  },
+/**
+ * BODY TEXT
+ */
+export const BodyText: Story = {
+  name: 'Body text',
+
+  render: () => (
+    <Stack spacing={3}>
+      <Stack
+        direction="row"
+        spacing={3}
+        alignItems="baseline"
+      >
+        <StyleLabel>
+          body1
+        </StyleLabel>
+
+        <Typography variant="body1">
+          Body 1 — The quick brown fox jumps over
+          the lazy dog.
+        </Typography>
+      </Stack>
+
+      <Stack
+        direction="row"
+        spacing={3}
+        alignItems="baseline"
+      >
+        <StyleLabel>
+          body2
+        </StyleLabel>
+
+        <Typography variant="body2">
+          Body 2 — The quick brown fox jumps over
+          the lazy dog.
+        </Typography>
+      </Stack>
+    </Stack>
+  ),
 }
 
-export const H4: Story = {
-  name: 'h4',
-  args: {
-    style: 'h4',
-    children: 'The H4 Heading',
-  },
+/**
+ * SUPPORTING
+ */
+export const Supporting: Story = {
+  render: () => (
+    <Stack spacing={3}>
+      <Stack
+        direction="row"
+        spacing={3}
+        alignItems="baseline"
+      >
+        <StyleLabel>
+          caption
+        </StyleLabel>
+
+        <Typography variant="caption">
+          Caption text
+        </Typography>
+      </Stack>
+
+      <Stack
+        direction="row"
+        spacing={3}
+        alignItems="baseline"
+      >
+        <StyleLabel>
+          overline
+        </StyleLabel>
+
+        <Typography variant="overline">
+          Overline text
+        </Typography>
+      </Stack>
+    </Stack>
+  ),
 }
 
-export const H5: Story = {
-  name: 'h5',
-  args: {
-    style: 'h5',
-    children: 'The H5 Heading',
-  },
-}
+/**
+ * LEGAL
+ */
+export const Legal: Story = {
+  render: () => (
+    <Stack spacing={3}>
+      <Stack
+        direction="row"
+        spacing={3}
+        alignItems="baseline"
+      >
+        <StyleLabel>
+          legalRegular
+        </StyleLabel>
 
-export const H6: Story = {
-  name: 'h6',
-  args: {
-    style: 'h6',
-    children: 'The H6 Heading',
-  },
-}
+        <Typography
+          sx={typographyTokens.legalRegular}
+        >
+          Legal text — important supporting
+          information and terms.
+        </Typography>
+      </Stack>
 
-export const Subtitle1: Story = {
-  name: 'subtitle1',
-  args: {
-    style: 'subtitle1',
-    children: 'Subtitle 1',
-  },
-}
+      <Stack
+        direction="row"
+        spacing={3}
+        alignItems="baseline"
+      >
+        <StyleLabel>
+          legalBold
+        </StyleLabel>
 
-export const Subtitle2: Story = {
-  name: 'subtitle2',
-  args: {
-    style: 'subtitle2',
-    children: 'Subtitle 2',
-  },
-}
-
-export const Body1: Story = {
-  name: 'body1',
-  args: {
-    style: 'body1',
-    children:
-      'Body 1 — The quick brown fox jumps over the lazy dog.',
-  },
-}
-
-export const Body2: Story = {
-  name: 'body2',
-  args: {
-    style: 'body2',
-    children:
-      'Body 2 — The quick brown fox jumps over the lazy dog.',
-  },
-}
-
-export const Caption: Story = {
-  name: 'caption',
-  args: {
-    style: 'caption',
-    children: 'Caption text',
-  },
-}
-
-export const Overline: Story = {
-  name: 'overline',
-  args: {
-    style: 'overline',
-    children: 'Overline text',
-  },
-}
-
-export const LegalRegular: Story = {
-  name: 'legalRegular',
-  args: {
-    style: 'legalRegular',
-    children:
-      'Legal text — important supporting information and terms.',
-  },
-}
-
-export const LegalBold: Story = {
-  name: 'legalBold',
-  args: {
-    style: 'legalBold',
-    children:
-      'Legal text — important supporting information and terms.',
-  },
+        <Typography
+          sx={typographyTokens.legalBold}
+        >
+          Legal text — important supporting
+          information and terms.
+        </Typography>
+      </Stack>
+    </Stack>
+  ),
 }
