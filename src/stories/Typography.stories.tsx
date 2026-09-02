@@ -180,8 +180,15 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 /**
- * Shared label used on the left-hand side
- * of the grouped typography examples.
+ * Hidden interactive playground used
+ * as the Primary example in Docs.
+ */
+export const Playground: Story = {
+  tags: ['!dev'],
+}
+
+/**
+ * Shared token label.
  */
 function StyleLabel({
   children,
@@ -206,19 +213,37 @@ function StyleLabel({
  * HEADINGS
  */
 export const Headings: Story = {
-  render: () => {
+  args: {
+    children: 'The Heading',
+  },
+
+  argTypes: {
+    style: {
+      table: {
+        disable: true,
+      },
+    },
+  },
+
+  render: ({
+    children,
+    align,
+    color,
+    gutterBottom,
+    noWrap,
+  }) => {
     const headings = [
-      ['h1', 'The H1 Heading'],
-      ['h2', 'The H2 Heading'],
-      ['h3', 'The H3 Heading'],
-      ['h4', 'The H4 Heading'],
-      ['h5', 'The H5 Heading'],
-      ['h6', 'The H6 Heading'],
+      'h1',
+      'h2',
+      'h3',
+      'h4',
+      'h5',
+      'h6',
     ] as const
 
     return (
       <Stack spacing={3}>
-        {headings.map(([variant, label]) => (
+        {headings.map((variant) => (
           <Stack
             key={variant}
             direction="row"
@@ -229,8 +254,14 @@ export const Headings: Story = {
               {variant}
             </StyleLabel>
 
-            <Typography variant={variant}>
-              {label}
+            <Typography
+              variant={variant}
+              align={align}
+              color={color}
+              gutterBottom={gutterBottom}
+              noWrap={noWrap}
+            >
+              {children}
             </Typography>
           </Stack>
         ))}
@@ -243,37 +274,57 @@ export const Headings: Story = {
  * SUBTITLES
  */
 export const Subtitles: Story = {
-  render: () => (
-    <Stack spacing={3}>
-      <Stack
-        direction="row"
-        spacing={3}
-        alignItems="baseline"
-      >
-        <StyleLabel>
-          subtitle1
-        </StyleLabel>
+  args: {
+    children: 'Subtitle text',
+  },
 
-        <Typography variant="subtitle1">
-          Subtitle 1
-        </Typography>
+  argTypes: {
+    style: {
+      table: {
+        disable: true,
+      },
+    },
+  },
+
+  render: ({
+    children,
+    align,
+    color,
+    gutterBottom,
+    noWrap,
+  }) => {
+    const subtitles = [
+      'subtitle1',
+      'subtitle2',
+    ] as const
+
+    return (
+      <Stack spacing={3}>
+        {subtitles.map((variant) => (
+          <Stack
+            key={variant}
+            direction="row"
+            spacing={3}
+            alignItems="baseline"
+          >
+            <StyleLabel>
+              {variant}
+            </StyleLabel>
+
+            <Typography
+              variant={variant}
+              align={align}
+              color={color}
+              gutterBottom={gutterBottom}
+              noWrap={noWrap}
+            >
+              {children}
+            </Typography>
+          </Stack>
+        ))}
       </Stack>
-
-      <Stack
-        direction="row"
-        spacing={3}
-        alignItems="baseline"
-      >
-        <StyleLabel>
-          subtitle2
-        </StyleLabel>
-
-        <Typography variant="subtitle2">
-          Subtitle 2
-        </Typography>
-      </Stack>
-    </Stack>
-  ),
+    )
+  },
 }
 
 /**
@@ -282,117 +333,171 @@ export const Subtitles: Story = {
 export const BodyText: Story = {
   name: 'Body text',
 
-  render: () => (
-    <Stack spacing={3}>
-      <Stack
-        direction="row"
-        spacing={3}
-        alignItems="baseline"
-      >
-        <StyleLabel>
-          body1
-        </StyleLabel>
+  args: {
+    children:
+      'The quick brown fox jumps over the lazy dog.',
+  },
 
-        <Typography variant="body1">
-          Body 1 — The quick brown fox jumps over
-          the lazy dog.
-        </Typography>
+  argTypes: {
+    style: {
+      table: {
+        disable: true,
+      },
+    },
+  },
+
+  render: ({
+    children,
+    align,
+    color,
+    gutterBottom,
+    noWrap,
+  }) => {
+    const bodyStyles = [
+      'body1',
+      'body2',
+    ] as const
+
+    return (
+      <Stack spacing={3}>
+        {bodyStyles.map((variant) => (
+          <Stack
+            key={variant}
+            direction="row"
+            spacing={3}
+            alignItems="baseline"
+          >
+            <StyleLabel>
+              {variant}
+            </StyleLabel>
+
+            <Typography
+              variant={variant}
+              align={align}
+              color={color}
+              gutterBottom={gutterBottom}
+              noWrap={noWrap}
+            >
+              {children}
+            </Typography>
+          </Stack>
+        ))}
       </Stack>
-
-      <Stack
-        direction="row"
-        spacing={3}
-        alignItems="baseline"
-      >
-        <StyleLabel>
-          body2
-        </StyleLabel>
-
-        <Typography variant="body2">
-          Body 2 — The quick brown fox jumps over
-          the lazy dog.
-        </Typography>
-      </Stack>
-    </Stack>
-  ),
+    )
+  },
 }
 
 /**
  * SUPPORTING
  */
 export const Supporting: Story = {
-  render: () => (
-    <Stack spacing={3}>
-      <Stack
-        direction="row"
-        spacing={3}
-        alignItems="baseline"
-      >
-        <StyleLabel>
-          caption
-        </StyleLabel>
+  args: {
+    children: 'Supporting text',
+  },
 
-        <Typography variant="caption">
-          Caption text
-        </Typography>
+  argTypes: {
+    style: {
+      table: {
+        disable: true,
+      },
+    },
+  },
+
+  render: ({
+    children,
+    align,
+    color,
+    gutterBottom,
+    noWrap,
+  }) => {
+    const supportingStyles = [
+      'caption',
+      'overline',
+    ] as const
+
+    return (
+      <Stack spacing={3}>
+        {supportingStyles.map((variant) => (
+          <Stack
+            key={variant}
+            direction="row"
+            spacing={3}
+            alignItems="baseline"
+          >
+            <StyleLabel>
+              {variant}
+            </StyleLabel>
+
+            <Typography
+              variant={variant}
+              align={align}
+              color={color}
+              gutterBottom={gutterBottom}
+              noWrap={noWrap}
+            >
+              {children}
+            </Typography>
+          </Stack>
+        ))}
       </Stack>
-
-      <Stack
-        direction="row"
-        spacing={3}
-        alignItems="baseline"
-      >
-        <StyleLabel>
-          overline
-        </StyleLabel>
-
-        <Typography variant="overline">
-          Overline text
-        </Typography>
-      </Stack>
-    </Stack>
-  ),
+    )
+  },
 }
 
 /**
  * LEGAL
  */
 export const Legal: Story = {
-  render: () => (
-    <Stack spacing={3}>
-      <Stack
-        direction="row"
-        spacing={3}
-        alignItems="baseline"
-      >
-        <StyleLabel>
-          legalRegular
-        </StyleLabel>
+  args: {
+    children:
+      'Legal text — important supporting information and terms.',
+  },
 
-        <Typography
-          sx={typographyTokens.legalRegular}
-        >
-          Legal text — important supporting
-          information and terms.
-        </Typography>
+  argTypes: {
+    style: {
+      table: {
+        disable: true,
+      },
+    },
+  },
+
+  render: ({
+    children,
+    align,
+    color,
+    gutterBottom,
+    noWrap,
+  }) => {
+    const legalStyles = [
+      'legalRegular',
+      'legalBold',
+    ] as const
+
+    return (
+      <Stack spacing={3}>
+        {legalStyles.map((style) => (
+          <Stack
+            key={style}
+            direction="row"
+            spacing={3}
+            alignItems="baseline"
+          >
+            <StyleLabel>
+              {style}
+            </StyleLabel>
+
+            <Typography
+              align={align}
+              color={color}
+              gutterBottom={gutterBottom}
+              noWrap={noWrap}
+              sx={typographyTokens[style]}
+            >
+              {children}
+            </Typography>
+          </Stack>
+        ))}
       </Stack>
-
-      <Stack
-        direction="row"
-        spacing={3}
-        alignItems="baseline"
-      >
-        <StyleLabel>
-          legalBold
-        </StyleLabel>
-
-        <Typography
-          sx={typographyTokens.legalBold}
-        >
-          Legal text — important supporting
-          information and terms.
-        </Typography>
-      </Stack>
-    </Stack>
-  ),
+    )
+  },
 }
