@@ -18,6 +18,10 @@ const meta = {
     children: 'Button label',
     variant: 'contained',
     size: 'medium',
+
+    startIcon: undefined,
+    endIcon: undefined,
+
     disabled: false,
     loading: false,
     fullWidth: false,
@@ -91,7 +95,7 @@ const meta = {
     <Box
       sx={{
         width: args.fullWidth
-          ? '320px'
+          ? '20rem'
           : 'fit-content',
       }}
     >
@@ -107,7 +111,6 @@ type Story = StoryObj<typeof meta>
 export const Contained: Story = {
   args: {
     variant: 'contained',
-    endIcon: "add"
   },
 }
 
@@ -149,6 +152,7 @@ export const StartIcon: Story = {
   args: {
     variant: 'contained',
     startIcon: 'add',
+    endIcon: undefined,
   },
 }
 
@@ -158,6 +162,7 @@ export const EndIcon: Story = {
 
   args: {
     variant: 'contained',
+    startIcon: undefined,
     endIcon: 'arrow_forward',
   },
 }
@@ -168,6 +173,8 @@ export const Loading: Story = {
   args: {
     variant: 'contained',
     children: 'Loading',
+    startIcon: undefined,
+    endIcon: undefined,
     loading: true,
   },
 }
