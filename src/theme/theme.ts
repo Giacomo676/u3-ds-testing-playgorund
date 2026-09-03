@@ -232,6 +232,11 @@ export const theme = createTheme({
      * Weight: 200
      * Grade: 0
      * Optical size: 24
+     *
+     * The icon retains a 24 × 24px layout box.
+     * Overflow remains visible to prevent clipping,
+     * while flex alignment centres the glyph within
+     * the icon box.
      */
     MuiIcon: {
       defaultProps: {
@@ -247,11 +252,23 @@ export const theme = createTheme({
           fontVariationSettings:
             "'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24",
 
+          fontFeatureSettings: '"liga"',
+          WebkitFontFeatureSettings: '"liga"',
+
           fontSize: '1.5rem',
           width: '1.5rem',
           height: '1.5rem',
 
+          display: 'inline-flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          verticalAlign: 'middle',
+
           lineHeight: 1,
+          whiteSpace: 'nowrap',
+
+          overflow: 'visible',
+
           flexShrink: 0,
         },
       },
