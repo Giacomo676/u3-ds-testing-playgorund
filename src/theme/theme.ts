@@ -263,6 +263,7 @@ export const theme = createTheme({
      * Enabled  → no elevation
      * Hover    → Elevation 7
      * Pressed  → no elevation
+     * Focus    → no elevation
      * Disabled → no elevation
      * Loading  → no elevation
      */
@@ -295,6 +296,10 @@ export const theme = createTheme({
           /**
            * Global keyboard focus.
            *
+           * Focus uses the dashed ULTRUS ring only.
+           * Elevation is removed even if the
+           * Button is simultaneously hovered.
+           *
            * Fine visual strokes remain px-based.
            */
           '&.Mui-focusVisible, &:focus-visible': {
@@ -302,6 +307,12 @@ export const theme = createTheme({
               `2px dashed ${semanticColors.light.button.focus.ring}`,
 
             outlineOffset: '3px',
+
+            boxShadow: 'none',
+
+            '&:hover': {
+              boxShadow: 'none',
+            },
           },
 
           /**
