@@ -30,8 +30,8 @@ export const semanticColors = {
        * CONTAINED
        */
       contained: {
-        default: primitives.primaryRed[900],
-        hover: primitives.primaryRed[700],
+        default: primitives.primaryRed[950],
+        hover: primitives.primaryRed[800],
         pressed: primitives.primaryRed[900],
         foreground:
           primitives.opacityWhite[100],
