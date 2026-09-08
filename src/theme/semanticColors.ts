@@ -30,9 +30,15 @@ export const semanticColors = {
        * CONTAINED
        */
       contained: {
-        default: primitives.primaryRed[950],
-        hover: primitives.primaryRed[800],
-        pressed: primitives.primaryRed[900],
+        default:
+          primitives.primaryRed[950],
+
+        hover:
+          primitives.primaryRed[800],
+
+        pressed:
+          primitives.primaryRed[950],
+
         foreground:
           primitives.opacityWhite[100],
 
@@ -40,13 +46,13 @@ export const semanticColors = {
          * Loading
          *
          * Figma:
-         * primary/red1/900
+         * primary/red1/950
          * +
          * opacity/white/white 40%
          */
         loading: {
           background: mixWithWhite(
-            primitives.primaryRed[900],
+            primitives.primaryRed[950],
             40,
           ),
 
