@@ -1,12 +1,5 @@
 import { primitives } from './primitives'
 
-/**
- * Figma loading states use layered colours.
- *
- * CSS color-mix lets us preserve the relationship
- * between the base ULTRUS colour and the opacity
- * layer defined in Figma.
- */
 const mixWithWhite = (
   color: string,
   whitePercent: number,
@@ -42,14 +35,6 @@ export const semanticColors = {
         foreground:
           primitives.opacityWhite[100],
 
-        /**
-         * Loading
-         *
-         * Figma:
-         * primary/red1/950
-         * +
-         * opacity/white/white 40%
-         */
         loading: {
           background: mixWithWhite(
             primitives.primaryRed[950],
@@ -77,19 +62,6 @@ export const semanticColors = {
         pressedForeground:
           primitives.primaryRed[700],
 
-        /**
-         * Loading
-         *
-         * Background:
-         * button/secondary/enabled
-         * +
-         * opacity/black/black 4%
-         *
-         * Foreground / stroke:
-         * outlined enabled colour
-         * +
-         * opacity/white/white 70%
-         */
         loading: {
           background: mixWithBlack(
             primitives.opacityWhite[100],
@@ -127,14 +99,6 @@ export const semanticColors = {
         pressedForeground:
           primitives.primaryRed[700],
 
-        /**
-         * Loading
-         *
-         * Figma:
-         * text/text-black
-         * +
-         * opacity/white/white 60%
-         */
         loading: {
           foreground: mixWithWhite(
             primitives.secondaryGray[900],
@@ -165,19 +129,6 @@ export const semanticColors = {
         pressedForeground:
           primitives.feedbackRed[500],
 
-        /**
-         * Loading
-         *
-         * Background:
-         * button/secondary/enabled
-         * +
-         * opacity/black/black 4%
-         *
-         * Foreground / stroke:
-         * button/destructive/enabled
-         * +
-         * opacity/white/white 70%
-         */
         loading: {
           background: mixWithBlack(
             primitives.opacityWhite[100],
@@ -196,9 +147,6 @@ export const semanticColors = {
         },
       },
 
-      /**
-       * DISABLED
-       */
       disabled: {
         background:
           primitives.secondaryGray[100],
@@ -210,9 +158,6 @@ export const semanticColors = {
           primitives.secondaryGray[100],
       },
 
-      /**
-       * FOCUS
-       */
       focus: {
         ring:
           primitives.primaryRed[900],
@@ -220,8 +165,157 @@ export const semanticColors = {
     },
 
     /**
-     * GENERAL TEXT
+     * ICON BUTTON
      */
+    iconButton: {
+      /**
+       * SOLID
+       *
+       * Directly mapped from the Figma
+       * icon button/solid semantic variables.
+       */
+      solid: {
+        enabled: {
+          background:
+            primitives.opacityWhite[100],
+
+          border:
+            primitives.secondaryGray[500],
+
+          foreground:
+            primitives.secondaryGray[900],
+        },
+
+        hovered: {
+          background:
+            primitives.secondaryGray[100],
+
+          border:
+            primitives.secondaryGray[500],
+
+          foreground:
+            primitives.secondaryGray[900],
+        },
+
+        focused: {
+          background:
+            primitives.opacityWhite[100],
+
+          border:
+            primitives.secondaryGray[500],
+
+          foreground:
+            primitives.secondaryGray[900],
+
+          outline:
+            primitives.primaryRed[900],
+        },
+
+        pressed: {
+          background:
+            primitives.opacityWhite[100],
+
+          border:
+            primitives.secondaryGray[500],
+
+          foreground:
+            primitives.secondaryGray[900],
+        },
+
+        disabled: {
+          background:
+            primitives.secondaryGray[200],
+
+          border:
+            primitives.opacityWhite[0],
+
+          foreground:
+            primitives.secondaryGray[500],
+        },
+
+        /**
+         * Figma semantic:
+         * icon button/solid/active
+         *
+         * Reserved for a future active/selected state.
+         */
+        active:
+          primitives.primaryRed[100],
+      },
+
+      /**
+       * MINIMAL
+       *
+       * Directly mapped from the Figma
+       * icon button/minimal semantic variables.
+       */
+      minimal: {
+        enabled: {
+          background:
+            primitives.opacityWhite[0],
+
+          border:
+            primitives.opacityWhite[0],
+
+          foreground:
+            primitives.secondaryGray[900],
+        },
+
+        hovered: {
+          background:
+            primitives.secondaryGray[100],
+
+          border:
+            primitives.opacityWhite[0],
+
+          foreground:
+            primitives.secondaryGray[900],
+        },
+
+        focused: {
+          background:
+            primitives.opacityWhite[0],
+
+          border:
+            primitives.opacityWhite[0],
+
+          foreground:
+            primitives.secondaryGray[900],
+
+          outline:
+            primitives.primaryRed[900],
+        },
+
+        pressed: {
+          background:
+            primitives.opacityWhite[0],
+
+          border:
+            primitives.opacityWhite[0],
+
+          foreground:
+            primitives.secondaryGray[900],
+        },
+
+        disabled: {
+          background:
+            primitives.opacityWhite[0],
+
+          border:
+            primitives.opacityWhite[0],
+
+          foreground:
+            primitives.secondaryGray[500],
+        },
+
+        /**
+         * Reserved for future active/selected state.
+         */
+        active:
+          primitives.primaryRed[100],
+      },
+    },
+
     text: {
       primary:
         primitives.secondaryGray[900],
@@ -230,9 +324,6 @@ export const semanticColors = {
         primitives.secondaryGray[700],
     },
 
-    /**
-     * GENERAL BACKGROUNDS
-     */
     background: {
       default:
         primitives.opacityWhite[100],
@@ -245,9 +336,9 @@ export const semanticColors = {
   /**
    * DARK MODE
    *
-   * Loading colours remain unchanged until
-   * the equivalent dark-mode loading states
-   * are established in Figma.
+   * Icon Button dark-mode values are not yet
+   * represented here because the Figma references
+   * supplied so far are specifically Light mode.
    */
   dark: {
     button: {

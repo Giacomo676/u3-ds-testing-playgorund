@@ -5,7 +5,7 @@ import { materialSymbolNames } from '../icons/materialSymbolNames'
 import { UltrusButton } from '../components/UltrusButton'
 
 const meta = {
-  title: 'Components/Button',
+  title: 'Components/Buttons/Button',
   component: UltrusButton,
 
   parameters: {

@@ -10,21 +10,6 @@ import {
   typographyTokens,
 } from './typography'
 
-/**
- * ULTRUS / MUI spacing
- *
- * Preserves MUI's standard 8px spacing factor,
- * but outputs scalable rem values.
- *
- * Examples:
- *
- * theme.spacing(0.25) → 0.125rem → 2px
- * theme.spacing(0.5)  → 0.25rem  → 4px
- * theme.spacing(1)    → 0.5rem   → 8px
- * theme.spacing(2)    → 1rem     → 16px
- * theme.spacing(3)    → 1.5rem   → 24px
- * theme.spacing(4)    → 2rem     → 32px
- */
 const muiSpacing = (factor: number) =>
   `${factor * 0.5}rem`
 
@@ -160,10 +145,6 @@ export const theme = createTheme({
     },
   },
 
-  /**
-   * MUI's normal 8px spacing system is retained,
-   * but expressed in rem.
-   */
   spacing: muiSpacing,
 
   typography: {
@@ -197,8 +178,7 @@ export const theme = createTheme({
       ...typographyTokens.h3.mobile,
 
       '@media (min-width:600px)': {
-        ...typographyTokens.h3
-          .tabletDesktop,
+        ...typographyTokens.h3.tabletDesktop,
       },
     },
 
@@ -227,21 +207,11 @@ export const theme = createTheme({
     },
   },
 
-  /**
-   * MUI expects its base shape value as a number.
-   * ULTRUS component radius tokens live in shape.ts.
-   */
   shape: {
     borderRadius: 8,
   },
 
   components: {
-    /**
-     * Global interaction behaviour.
-     *
-     * Ripple is controlled from:
-     * src/theme/config.ts
-     */
     MuiButtonBase: {
       defaultProps: {
         disableRipple:
@@ -250,18 +220,7 @@ export const theme = createTheme({
     },
 
     /**
-     * Global ULTRUS Icon configuration.
-     *
-     * Material Symbols Rounded
-     * Fill: 0
-     * Weight: 200
-     * Grade: 0
-     * Optical size: 24
-     *
-     * The icon retains a 24 × 24px layout box.
-     * Overflow remains visible to prevent clipping,
-     * while flex alignment centres the glyph within
-     * the icon box.
+     * MATERIAL SYMBOLS
      */
     MuiIcon: {
       defaultProps: {
@@ -286,15 +245,19 @@ export const theme = createTheme({
             '"liga"',
 
           fontSize: '1.5rem',
+
           width: '1.5rem',
           height: '1.5rem',
 
           display: 'inline-flex',
+
           alignItems: 'center',
           justifyContent: 'center',
+
           verticalAlign: 'middle',
 
           lineHeight: 1,
+
           whiteSpace: 'nowrap',
 
           overflow: 'visible',
@@ -305,24 +268,526 @@ export const theme = createTheme({
     },
 
     /**
-     * Global ULTRUS Button configuration.
-     *
-     * Enabled  → no elevation
-     * Hover    → Elevation 7
-     * Pressed  → no elevation
-     * Focus    → no elevation
-     * Disabled → no elevation
-     * Loading  → dimmed / no elevation
+     * ICON BUTTON
+     */
+    MuiIconButton: {
+      styleOverrides: {
+        root: ({
+          theme,
+          ownerState,
+        }) => {
+          const isLarge =
+            ownerState.size === 'large'
+
+          const isSmall =
+            ownerState.size === 'small'
+
+          const sizeStyles =
+            isLarge
+              ? {
+                  width: '2.75rem',
+                  height: '2.75rem',
+                }
+              : isSmall
+                ? {
+                    width: '2rem',
+                    height: '2rem',
+                  }
+                : {
+                    width: '2.5rem',
+                    height: '2.5rem',
+                  }
+
+          return {
+            ...sizeStyles,
+
+            minWidth: 0,
+            minHeight: 0,
+
+            padding: 0,
+
+            boxSizing:
+              'border-box',
+
+            borderRadius:
+              radius.full,
+
+            display:
+              'inline-flex',
+
+            alignItems:
+              'center',
+
+            justifyContent:
+              'center',
+
+            position:
+              'relative',
+
+            overflow:
+              'visible',
+
+            lineHeight: 1,
+
+            boxShadow:
+              'none',
+
+            transition:
+              theme.transitions.create(
+                [
+                  'background-color',
+                  'border-color',
+                  'box-shadow',
+                  'color',
+                ],
+                {
+                  duration:
+                    theme.transitions
+                      .duration.shorter,
+                },
+              ),
+
+            /**
+             * Icon dimensions
+             *
+             * Large  → 24px
+             * Medium → 24px
+             * Small  → 16px
+             *
+             * Material Symbols sit very slightly
+             * high at 16px, so Small receives a
+             * 1px optical vertical correction.
+             */
+            '& .MuiIcon-root': {
+              fontSize:
+                isSmall
+                  ? '1rem'
+                  : '1.5rem',
+
+              width:
+                isSmall
+                  ? '1rem'
+                  : '1.5rem',
+
+              height:
+                isSmall
+                  ? '1rem'
+                  : '1.5rem',
+
+              display:
+                'inline-flex',
+
+              alignItems:
+                'center',
+
+              justifyContent:
+                'center',
+
+              lineHeight: 1,
+
+              overflow:
+                'visible',
+
+              transform:
+                isSmall
+                  ? 'translateY(0.0625rem)'
+                  : 'none',
+            },
+
+            /**
+             * SOLID
+             */
+            '&[data-variant="solid"]':
+              {
+                color:
+                  semanticColors.light
+                    .iconButton.solid
+                    .enabled.foreground,
+
+                backgroundColor:
+                  semanticColors.light
+                    .iconButton.solid
+                    .enabled.background,
+
+                border:
+                  `1px solid ${semanticColors.light.iconButton.solid.enabled.border}`,
+
+                '&:hover': {
+                  color:
+                    semanticColors.light
+                      .iconButton.solid
+                      .hovered.foreground,
+
+                  backgroundColor:
+                    semanticColors.light
+                      .iconButton.solid
+                      .hovered.background,
+
+                  borderColor:
+                    semanticColors.light
+                      .iconButton.solid
+                      .hovered.border,
+
+                  boxShadow:
+                    theme.shadows[7],
+                },
+
+                '&:active': {
+                  color:
+                    semanticColors.light
+                      .iconButton.solid
+                      .pressed.foreground,
+
+                  backgroundColor:
+                    semanticColors.light
+                      .iconButton.solid
+                      .pressed.background,
+
+                  borderColor:
+                    semanticColors.light
+                      .iconButton.solid
+                      .pressed.border,
+
+                  boxShadow: 'none',
+                },
+
+                '&.Mui-focusVisible, &:focus-visible':
+                  {
+                    color:
+                      semanticColors.light
+                        .iconButton.solid
+                        .focused.foreground,
+
+                    backgroundColor:
+                      semanticColors.light
+                        .iconButton.solid
+                        .focused.background,
+
+                    borderColor:
+                      semanticColors.light
+                        .iconButton.solid
+                        .focused.border,
+
+                    outline:
+                      `2px dashed ${semanticColors.light.iconButton.solid.focused.outline}`,
+
+                    outlineOffset:
+                      '3px',
+
+                    boxShadow:
+                      'none',
+
+                    '&:hover': {
+                      boxShadow:
+                        'none',
+                    },
+                  },
+
+                '&.Mui-disabled': {
+                  color:
+                    semanticColors.light
+                      .iconButton.solid
+                      .disabled.foreground,
+
+                  backgroundColor:
+                    semanticColors.light
+                      .iconButton.solid
+                      .disabled.background,
+
+                  borderColor:
+                    semanticColors.light
+                      .iconButton.solid
+                      .disabled.border,
+
+                  boxShadow:
+                    'none',
+                },
+              },
+
+            /**
+             * MINIMAL
+             */
+            '&[data-variant="minimal"]':
+              {
+                color:
+                  semanticColors.light
+                    .iconButton.minimal
+                    .enabled.foreground,
+
+                backgroundColor:
+                  semanticColors.light
+                    .iconButton.minimal
+                    .enabled.background,
+
+                border:
+                  `1px solid ${semanticColors.light.iconButton.minimal.enabled.border}`,
+
+                '&:hover': {
+                  color:
+                    semanticColors.light
+                      .iconButton.minimal
+                      .hovered.foreground,
+
+                  backgroundColor:
+                    semanticColors.light
+                      .iconButton.minimal
+                      .hovered.background,
+
+                  borderColor:
+                    semanticColors.light
+                      .iconButton.minimal
+                      .hovered.border,
+
+                  boxShadow:
+                    theme.shadows[7],
+                },
+
+                '&:active': {
+                  color:
+                    semanticColors.light
+                      .iconButton.minimal
+                      .pressed.foreground,
+
+                  backgroundColor:
+                    semanticColors.light
+                      .iconButton.minimal
+                      .pressed.background,
+
+                  borderColor:
+                    semanticColors.light
+                      .iconButton.minimal
+                      .pressed.border,
+
+                  boxShadow:
+                    'none',
+                },
+
+                '&.Mui-focusVisible, &:focus-visible':
+                  {
+                    color:
+                      semanticColors.light
+                        .iconButton.minimal
+                        .focused.foreground,
+
+                    backgroundColor:
+                      semanticColors.light
+                        .iconButton.minimal
+                        .focused.background,
+
+                    borderColor:
+                      semanticColors.light
+                        .iconButton.minimal
+                        .focused.border,
+
+                    outline:
+                      `2px dashed ${semanticColors.light.iconButton.minimal.focused.outline}`,
+
+                    outlineOffset:
+                      '3px',
+
+                    boxShadow:
+                      'none',
+
+                    '&:hover': {
+                      boxShadow:
+                        'none',
+                    },
+                  },
+
+                '&.Mui-disabled': {
+                  color:
+                    semanticColors.light
+                      .iconButton.minimal
+                      .disabled.foreground,
+
+                  backgroundColor:
+                    semanticColors.light
+                      .iconButton.minimal
+                      .disabled.background,
+
+                  borderColor:
+                    semanticColors.light
+                      .iconButton.minimal
+                      .disabled.border,
+
+                  boxShadow:
+                    'none',
+                },
+              },
+
+            /**
+             * DARK MODE
+             *
+             * Temporary fallback until
+             * Icon Button dark semantics
+             * are defined in Figma.
+             */
+            ...theme.applyStyles(
+              'dark',
+              {
+                '&[data-variant="solid"]':
+                  {
+                    color:
+                      semanticColors.dark
+                        .text.primary,
+
+                    backgroundColor:
+                      semanticColors.dark
+                        .background.surface,
+
+                    borderColor:
+                      semanticColors.dark
+                        .button.disabled
+                        .border,
+
+                    '&:hover': {
+                      color:
+                        semanticColors.dark
+                          .text.primary,
+
+                      backgroundColor:
+                        semanticColors.dark
+                          .button.outlined
+                          .hoverBackground,
+
+                      borderColor:
+                        semanticColors.dark
+                          .button.disabled
+                          .border,
+
+                      boxShadow:
+                        theme.shadows[7],
+                    },
+
+                    '&:active': {
+                      color:
+                        semanticColors.dark
+                          .text.primary,
+
+                      backgroundColor:
+                        semanticColors.dark
+                          .background
+                          .surface,
+
+                      boxShadow:
+                        'none',
+                    },
+
+                    '&.Mui-focusVisible, &:focus-visible':
+                      {
+                        outline:
+                          `2px dashed ${semanticColors.dark.button.focus.ring}`,
+
+                        outlineOffset:
+                          '3px',
+
+                        boxShadow:
+                          'none',
+                      },
+
+                    '&.Mui-disabled':
+                      {
+                        color:
+                          semanticColors.dark
+                            .button.disabled
+                            .foreground,
+
+                        backgroundColor:
+                          semanticColors.dark
+                            .button.disabled
+                            .background,
+
+                        borderColor:
+                          semanticColors.dark
+                            .button.disabled
+                            .border,
+                      },
+                  },
+
+                '&[data-variant="minimal"]':
+                  {
+                    color:
+                      semanticColors.dark
+                        .text.primary,
+
+                    backgroundColor:
+                      'transparent',
+
+                    borderColor:
+                      'transparent',
+
+                    '&:hover': {
+                      color:
+                        semanticColors.dark
+                          .text.primary,
+
+                      backgroundColor:
+                        semanticColors.dark
+                          .button.outlined
+                          .hoverBackground,
+
+                      borderColor:
+                        'transparent',
+
+                      boxShadow:
+                        theme.shadows[7],
+                    },
+
+                    '&:active': {
+                      backgroundColor:
+                        'transparent',
+
+                      borderColor:
+                        'transparent',
+
+                      boxShadow:
+                        'none',
+                    },
+
+                    '&.Mui-focusVisible, &:focus-visible':
+                      {
+                        outline:
+                          `2px dashed ${semanticColors.dark.button.focus.ring}`,
+
+                        outlineOffset:
+                          '3px',
+
+                        boxShadow:
+                          'none',
+                      },
+
+                    '&.Mui-disabled':
+                      {
+                        color:
+                          semanticColors.dark
+                            .button.disabled
+                            .foreground,
+
+                        backgroundColor:
+                          'transparent',
+
+                        borderColor:
+                          'transparent',
+                      },
+                  },
+              },
+            ),
+          }
+        },
+      },
+    },
+
+    /**
+     * BUTTON
      */
     MuiButton: {
       styleOverrides: {
         root: ({ theme }) => ({
-          borderRadius: radius.full,
+          borderRadius:
+            radius.full,
 
-          /**
-           * Global elevation behaviour.
-           */
-          boxShadow: 'none',
+          boxShadow:
+            'none',
 
           '&:hover': {
             boxShadow:
@@ -330,134 +795,135 @@ export const theme = createTheme({
           },
 
           '&:active': {
-            boxShadow: 'none',
+            boxShadow:
+              'none',
           },
 
-          [`&.${buttonClasses.disabled}`]: {
-            boxShadow: 'none',
-          },
+          [`&.${buttonClasses.disabled}`]:
+            {
+              boxShadow:
+                'none',
+            },
 
-          [`&.${buttonClasses.loading}`]: {
-            boxShadow: 'none',
-          },
+          [`&.${buttonClasses.loading}`]:
+            {
+              boxShadow:
+                'none',
+            },
 
-          /**
-           * Global keyboard focus.
-           *
-           * Focus uses the dashed ULTRUS ring only.
-           * Elevation is removed even if the
-           * Button is simultaneously hovered.
-           *
-           * Fine visual strokes remain px-based.
-           */
           '&.Mui-focusVisible, &:focus-visible':
             {
               outline:
                 `2px dashed ${semanticColors.light.button.focus.ring}`,
 
-              outlineOffset: '3px',
+              outlineOffset:
+                '3px',
 
-              boxShadow: 'none',
+              boxShadow:
+                'none',
 
               '&:hover': {
-                boxShadow: 'none',
+                boxShadow:
+                  'none',
               },
             },
 
-          /**
-           * CONTAINED
-           */
           [`&.${buttonClasses.contained}.${buttonClasses.colorPrimary}`]:
             {
               backgroundColor:
-                semanticColors.light.button
-                  .contained.default,
+                semanticColors.light
+                  .button.contained
+                  .default,
 
               color:
-                semanticColors.light.button
-                  .contained.foreground,
+                semanticColors.light
+                  .button.contained
+                  .foreground,
 
               '&:hover': {
                 backgroundColor:
-                  semanticColors.light.button
-                    .contained.hover,
+                  semanticColors.light
+                    .button.contained
+                    .hover,
               },
 
               '&:active': {
                 backgroundColor:
-                  semanticColors.light.button
-                    .contained.pressed,
+                  semanticColors.light
+                    .button.contained
+                    .pressed,
               },
 
               [`&.${buttonClasses.disabled}`]:
                 {
                   color:
-                    semanticColors.light.button
-                      .disabled.foreground,
-
-                  backgroundColor:
-                    semanticColors.light.button
-                      .disabled.background,
-                },
-
-              /**
-               * MUI loading is functionally
-               * disabled, but ULTRUS supplies
-               * its own distinct visual state.
-               */
-              [`&.${buttonClasses.loading}.${buttonClasses.disabled}`]:
-                {
-                  color:
-                    semanticColors.light.button
-                      .contained.loading
+                    semanticColors.light
+                      .button.disabled
                       .foreground,
 
                   backgroundColor:
-                    semanticColors.light.button
-                      .contained.loading
+                    semanticColors.light
+                      .button.disabled
+                      .background,
+                },
+
+              [`&.${buttonClasses.loading}.${buttonClasses.disabled}`]:
+                {
+                  color:
+                    semanticColors.light
+                      .button.contained
+                      .loading
+                      .foreground,
+
+                  backgroundColor:
+                    semanticColors.light
+                      .button.contained
+                      .loading
                       .background,
 
-                  boxShadow: 'none',
+                  boxShadow:
+                    'none',
                 },
             },
 
-          /**
-           * OUTLINED
-           */
           [`&.${buttonClasses.outlined}.${buttonClasses.colorPrimary}`]:
             {
               color:
-                semanticColors.light.button
-                  .outlined.foreground,
+                semanticColors.light
+                  .button.outlined
+                  .foreground,
 
               borderColor:
-                semanticColors.light.button
-                  .outlined.border,
+                semanticColors.light
+                  .button.outlined
+                  .border,
 
               '&:hover': {
                 color:
-                  semanticColors.light.button
-                    .outlined.foreground,
+                  semanticColors.light
+                    .button.outlined
+                    .foreground,
 
                 borderColor:
-                  semanticColors.light.button
-                    .outlined.border,
+                  semanticColors.light
+                    .button.outlined
+                    .border,
 
                 backgroundColor:
-                  semanticColors.light.button
-                    .outlined
+                  semanticColors.light
+                    .button.outlined
                     .hoverBackground,
               },
 
               '&:active': {
                 color:
-                  semanticColors.light.button
-                    .outlined
+                  semanticColors.light
+                    .button.outlined
                     .pressedForeground,
 
                 borderColor:
-                  semanticColors.light.button
-                    .outlined
+                  semanticColors.light
+                    .button.outlined
                     .pressedForeground,
 
                 backgroundColor:
@@ -467,143 +933,148 @@ export const theme = createTheme({
               [`&.${buttonClasses.disabled}`]:
                 {
                   color:
-                    semanticColors.light.button
-                      .disabled.foreground,
+                    semanticColors.light
+                      .button.disabled
+                      .foreground,
 
                   borderColor:
-                    semanticColors.light.button
-                      .disabled.border,
+                    semanticColors.light
+                      .button.disabled
+                      .border,
 
                   backgroundColor:
-                    semanticColors.light.button
-                      .disabled.background,
+                    semanticColors.light
+                      .button.disabled
+                      .background,
                 },
 
               [`&.${buttonClasses.loading}.${buttonClasses.disabled}`]:
                 {
                   color:
-                    semanticColors.light.button
-                      .outlined.loading
+                    semanticColors.light
+                      .button.outlined
+                      .loading
                       .foreground,
 
                   borderColor:
-                    semanticColors.light.button
-                      .outlined.loading.border,
+                    semanticColors.light
+                      .button.outlined
+                      .loading.border,
 
                   backgroundColor:
-                    semanticColors.light.button
-                      .outlined.loading
-                      .background,
+                    semanticColors.light
+                      .button.outlined
+                      .loading.background,
 
-                  boxShadow: 'none',
+                  boxShadow:
+                    'none',
                 },
             },
 
-          /**
-           * TEXT
-           *
-           * Transparent in interactive states
-           * except Disabled.
-           */
           [`&.${buttonClasses.text}.${buttonClasses.colorPrimary}`]:
             {
               color:
-                semanticColors.light.button
-                  .text.foreground,
+                semanticColors.light
+                  .button.text
+                  .foreground,
 
               backgroundColor:
-                semanticColors.light.button
-                  .text.background,
+                semanticColors.light
+                  .button.text
+                  .background,
 
               '&:hover': {
                 color:
-                  semanticColors.light.button
-                    .text.foreground,
+                  semanticColors.light
+                    .button.text
+                    .foreground,
 
                 backgroundColor:
-                  semanticColors.light.button
-                    .text.hoverBackground,
+                  semanticColors.light
+                    .button.text
+                    .hoverBackground,
               },
 
               '&:active': {
                 color:
-                  semanticColors.light.button
-                    .text
+                  semanticColors.light
+                    .button.text
                     .pressedForeground,
 
                 backgroundColor:
-                  semanticColors.light.button
-                    .text
+                  semanticColors.light
+                    .button.text
                     .pressedBackground,
               },
 
               [`&.${buttonClasses.disabled}`]:
                 {
                   color:
-                    semanticColors.light.button
-                      .disabled.foreground,
+                    semanticColors.light
+                      .button.disabled
+                      .foreground,
 
                   backgroundColor:
-                    semanticColors.light.button
-                      .disabled.background,
+                    semanticColors.light
+                      .button.disabled
+                      .background,
                 },
 
               [`&.${buttonClasses.loading}.${buttonClasses.disabled}`]:
                 {
                   color:
-                    semanticColors.light.button
-                      .text.loading.foreground,
+                    semanticColors.light
+                      .button.text
+                      .loading.foreground,
 
                   backgroundColor:
-                    semanticColors.light.button
-                      .text.loading.background,
+                    semanticColors.light
+                      .button.text
+                      .loading.background,
 
-                  boxShadow: 'none',
+                  boxShadow:
+                    'none',
                 },
             },
 
-          /**
-           * DESTRUCTIVE
-           *
-           * UltrusButton maps:
-           * destructive → outlined + error
-           */
           [`&.${buttonClasses.outlined}.${buttonClasses.colorError}`]:
             {
               color:
-                semanticColors.light.button
-                  .destructive.foreground,
+                semanticColors.light
+                  .button.destructive
+                  .foreground,
 
               borderColor:
-                semanticColors.light.button
-                  .destructive.border,
+                semanticColors.light
+                  .button.destructive
+                  .border,
 
               '&:hover': {
                 color:
-                  semanticColors.light.button
-                    .destructive
+                  semanticColors.light
+                    .button.destructive
                     .hoverForeground,
 
                 borderColor:
-                  semanticColors.light.button
-                    .destructive
+                  semanticColors.light
+                    .button.destructive
                     .hoverBackground,
 
                 backgroundColor:
-                  semanticColors.light.button
-                    .destructive
+                  semanticColors.light
+                    .button.destructive
                     .hoverBackground,
               },
 
               '&:active': {
                 color:
-                  semanticColors.light.button
-                    .destructive
+                  semanticColors.light
+                    .button.destructive
                     .pressedForeground,
 
                 borderColor:
-                  semanticColors.light.button
-                    .destructive
+                  semanticColors.light
+                    .button.destructive
                     .pressedForeground,
 
                 backgroundColor:
@@ -613,367 +1084,370 @@ export const theme = createTheme({
               [`&.${buttonClasses.disabled}`]:
                 {
                   color:
-                    semanticColors.light.button
-                      .disabled.foreground,
+                    semanticColors.light
+                      .button.disabled
+                      .foreground,
 
                   borderColor:
-                    semanticColors.light.button
-                      .disabled.border,
+                    semanticColors.light
+                      .button.disabled
+                      .border,
 
                   backgroundColor:
-                    semanticColors.light.button
-                      .disabled.background,
+                    semanticColors.light
+                      .button.disabled
+                      .background,
                 },
 
               [`&.${buttonClasses.loading}.${buttonClasses.disabled}`]:
                 {
                   color:
-                    semanticColors.light.button
-                      .destructive.loading
-                      .foreground,
+                    semanticColors.light
+                      .button.destructive
+                      .loading.foreground,
 
                   borderColor:
-                    semanticColors.light.button
-                      .destructive.loading
-                      .border,
+                    semanticColors.light
+                      .button.destructive
+                      .loading.border,
 
                   backgroundColor:
-                    semanticColors.light.button
-                      .destructive.loading
-                      .background,
+                    semanticColors.light
+                      .button.destructive
+                      .loading.background,
 
-                  boxShadow: 'none',
+                  boxShadow:
+                    'none',
                 },
             },
 
-          /**
-           * DARK MODE
-           */
-          ...theme.applyStyles('dark', {
-            '&.Mui-focusVisible, &:focus-visible':
-              {
-                outline:
-                  `2px dashed ${semanticColors.dark.button.focus.ring}`,
-              },
-
-            /**
-             * Contained — Dark
-             */
-            [`&.${buttonClasses.contained}.${buttonClasses.colorPrimary}`]:
-              {
-                backgroundColor:
-                  semanticColors.dark.button
-                    .contained.default,
-
-                color:
-                  semanticColors.dark.button
-                    .contained.foreground,
-
-                '&:hover': {
-                  backgroundColor:
-                    semanticColors.dark.button
-                      .contained.hover,
+          ...theme.applyStyles(
+            'dark',
+            {
+              '&.Mui-focusVisible, &:focus-visible':
+                {
+                  outline:
+                    `2px dashed ${semanticColors.dark.button.focus.ring}`,
                 },
 
-                '&:active': {
+              [`&.${buttonClasses.contained}.${buttonClasses.colorPrimary}`]:
+                {
                   backgroundColor:
-                    semanticColors.dark.button
-                      .contained.pressed,
-                },
+                    semanticColors.dark
+                      .button.contained
+                      .default,
 
-                [`&.${buttonClasses.disabled}`]:
-                  {
-                    color:
-                      semanticColors.dark.button
-                        .disabled.foreground,
-
-                    backgroundColor:
-                      semanticColors.dark.button
-                        .disabled.background,
-                  },
-
-                [`&.${buttonClasses.loading}.${buttonClasses.disabled}`]:
-                  {
-                    color:
-                      semanticColors.dark.button
-                        .contained.loading
-                        .foreground,
-
-                    backgroundColor:
-                      semanticColors.dark.button
-                        .contained.loading
-                        .background,
-
-                    boxShadow: 'none',
-                  },
-              },
-
-            /**
-             * Outlined — Dark
-             */
-            [`&.${buttonClasses.outlined}.${buttonClasses.colorPrimary}`]:
-              {
-                color:
-                  semanticColors.dark.button
-                    .outlined.foreground,
-
-                borderColor:
-                  semanticColors.dark.button
-                    .outlined.border,
-
-                '&:hover': {
                   color:
-                    semanticColors.dark.button
-                      .outlined.foreground,
+                    semanticColors.dark
+                      .button.contained
+                      .foreground,
+
+                  '&:hover': {
+                    backgroundColor:
+                      semanticColors.dark
+                        .button.contained
+                        .hover,
+                  },
+
+                  '&:active': {
+                    backgroundColor:
+                      semanticColors.dark
+                        .button.contained
+                        .pressed,
+                  },
+
+                  [`&.${buttonClasses.disabled}`]:
+                    {
+                      color:
+                        semanticColors.dark
+                          .button.disabled
+                          .foreground,
+
+                      backgroundColor:
+                        semanticColors.dark
+                          .button.disabled
+                          .background,
+                    },
+
+                  [`&.${buttonClasses.loading}.${buttonClasses.disabled}`]:
+                    {
+                      color:
+                        semanticColors.dark
+                          .button.contained
+                          .loading
+                          .foreground,
+
+                      backgroundColor:
+                        semanticColors.dark
+                          .button.contained
+                          .loading
+                          .background,
+
+                      boxShadow:
+                        'none',
+                    },
+                },
+
+              [`&.${buttonClasses.outlined}.${buttonClasses.colorPrimary}`]:
+                {
+                  color:
+                    semanticColors.dark
+                      .button.outlined
+                      .foreground,
 
                   borderColor:
-                    semanticColors.dark.button
-                      .outlined.border,
+                    semanticColors.dark
+                      .button.outlined
+                      .border,
 
-                  backgroundColor:
-                    semanticColors.dark.button
-                      .outlined
-                      .hoverBackground,
-                },
-
-                '&:active': {
-                  color:
-                    semanticColors.dark.button
-                      .outlined
-                      .pressedForeground,
-
-                  borderColor:
-                    semanticColors.dark.button
-                      .outlined
-                      .pressedForeground,
-
-                  backgroundColor:
-                    'transparent',
-                },
-
-                [`&.${buttonClasses.disabled}`]:
-                  {
+                  '&:hover': {
                     color:
-                      semanticColors.dark.button
-                        .disabled.foreground,
-
-                    borderColor:
-                      semanticColors.dark.button
-                        .disabled.border,
-
-                    backgroundColor:
-                      semanticColors.dark.button
-                        .disabled.background,
-                  },
-
-                [`&.${buttonClasses.loading}.${buttonClasses.disabled}`]:
-                  {
-                    color:
-                      semanticColors.dark.button
-                        .outlined.loading
+                      semanticColors.dark
+                        .button.outlined
                         .foreground,
 
                     borderColor:
-                      semanticColors.dark.button
-                        .outlined.loading.border,
+                      semanticColors.dark
+                        .button.outlined
+                        .border,
 
                     backgroundColor:
-                      semanticColors.dark.button
-                        .outlined.loading
-                        .background,
-
-                    boxShadow: 'none',
+                      semanticColors.dark
+                        .button.outlined
+                        .hoverBackground,
                   },
-              },
 
-            /**
-             * Text — Dark
-             */
-            [`&.${buttonClasses.text}.${buttonClasses.colorPrimary}`]:
-              {
-                color:
-                  semanticColors.dark.button
-                    .text.foreground,
-
-                backgroundColor:
-                  semanticColors.dark.button
-                    .text.background,
-
-                '&:hover': {
-                  color:
-                    semanticColors.dark.button
-                      .text.foreground,
-
-                  backgroundColor:
-                    semanticColors.dark.button
-                      .text.hoverBackground,
-                },
-
-                '&:active': {
-                  color:
-                    semanticColors.dark.button
-                      .text
-                      .pressedForeground,
-
-                  backgroundColor:
-                    semanticColors.dark.button
-                      .text
-                      .pressedBackground,
-                },
-
-                [`&.${buttonClasses.disabled}`]:
-                  {
+                  '&:active': {
                     color:
-                      semanticColors.dark.button
-                        .disabled.foreground,
+                      semanticColors.dark
+                        .button.outlined
+                        .pressedForeground,
+
+                    borderColor:
+                      semanticColors.dark
+                        .button.outlined
+                        .pressedForeground,
 
                     backgroundColor:
-                      semanticColors.dark.button
-                        .disabled.background,
+                      'transparent',
                   },
 
-                [`&.${buttonClasses.loading}.${buttonClasses.disabled}`]:
-                  {
+                  [`&.${buttonClasses.disabled}`]:
+                    {
+                      color:
+                        semanticColors.dark
+                          .button.disabled
+                          .foreground,
+
+                      borderColor:
+                        semanticColors.dark
+                          .button.disabled
+                          .border,
+
+                      backgroundColor:
+                        semanticColors.dark
+                          .button.disabled
+                          .background,
+                    },
+
+                  [`&.${buttonClasses.loading}.${buttonClasses.disabled}`]:
+                    {
+                      color:
+                        semanticColors.dark
+                          .button.outlined
+                          .loading
+                          .foreground,
+
+                      borderColor:
+                        semanticColors.dark
+                          .button.outlined
+                          .loading.border,
+
+                      backgroundColor:
+                        semanticColors.dark
+                          .button.outlined
+                          .loading
+                          .background,
+
+                      boxShadow:
+                        'none',
+                    },
+                },
+
+              [`&.${buttonClasses.text}.${buttonClasses.colorPrimary}`]:
+                {
+                  color:
+                    semanticColors.dark
+                      .button.text
+                      .foreground,
+
+                  backgroundColor:
+                    semanticColors.dark
+                      .button.text
+                      .background,
+
+                  '&:hover': {
                     color:
-                      semanticColors.dark.button
-                        .text.loading
+                      semanticColors.dark
+                        .button.text
                         .foreground,
 
                     backgroundColor:
-                      semanticColors.dark.button
-                        .text.loading
-                        .background,
-
-                    boxShadow: 'none',
+                      semanticColors.dark
+                        .button.text
+                        .hoverBackground,
                   },
-              },
 
-            /**
-             * Destructive — Dark
-             */
-            [`&.${buttonClasses.outlined}.${buttonClasses.colorError}`]:
-              {
-                color:
-                  semanticColors.dark.button
-                    .destructive.foreground,
-
-                borderColor:
-                  semanticColors.dark.button
-                    .destructive.border,
-
-                '&:hover': {
-                  color:
-                    semanticColors.dark.button
-                      .destructive
-                      .hoverForeground,
-
-                  borderColor:
-                    semanticColors.dark.button
-                      .destructive
-                      .hoverBackground,
-
-                  backgroundColor:
-                    semanticColors.dark.button
-                      .destructive
-                      .hoverBackground,
-                },
-
-                '&:active': {
-                  color:
-                    semanticColors.dark.button
-                      .destructive
-                      .pressedForeground,
-
-                  borderColor:
-                    semanticColors.dark.button
-                      .destructive
-                      .pressedForeground,
-
-                  backgroundColor:
-                    'transparent',
-                },
-
-                [`&.${buttonClasses.disabled}`]:
-                  {
+                  '&:active': {
                     color:
-                      semanticColors.dark.button
-                        .disabled.foreground,
-
-                    borderColor:
-                      semanticColors.dark.button
-                        .disabled.border,
+                      semanticColors.dark
+                        .button.text
+                        .pressedForeground,
 
                     backgroundColor:
-                      semanticColors.dark.button
-                        .disabled.background,
+                      semanticColors.dark
+                        .button.text
+                        .pressedBackground,
                   },
 
-                [`&.${buttonClasses.loading}.${buttonClasses.disabled}`]:
-                  {
+                  [`&.${buttonClasses.disabled}`]:
+                    {
+                      color:
+                        semanticColors.dark
+                          .button.disabled
+                          .foreground,
+
+                      backgroundColor:
+                        semanticColors.dark
+                          .button.disabled
+                          .background,
+                    },
+
+                  [`&.${buttonClasses.loading}.${buttonClasses.disabled}`]:
+                    {
+                      color:
+                        semanticColors.dark
+                          .button.text
+                          .loading.foreground,
+
+                      backgroundColor:
+                        semanticColors.dark
+                          .button.text
+                          .loading.background,
+
+                      boxShadow:
+                        'none',
+                    },
+                },
+
+              [`&.${buttonClasses.outlined}.${buttonClasses.colorError}`]:
+                {
+                  color:
+                    semanticColors.dark
+                      .button.destructive
+                      .foreground,
+
+                  borderColor:
+                    semanticColors.dark
+                      .button.destructive
+                      .border,
+
+                  '&:hover': {
                     color:
-                      semanticColors.dark.button
-                        .destructive.loading
-                        .foreground,
+                      semanticColors.dark
+                        .button.destructive
+                        .hoverForeground,
 
                     borderColor:
-                      semanticColors.dark.button
-                        .destructive.loading.border,
+                      semanticColors.dark
+                        .button.destructive
+                        .hoverBackground,
 
                     backgroundColor:
-                      semanticColors.dark.button
-                        .destructive.loading
-                        .background,
-
-                    boxShadow: 'none',
+                      semanticColors.dark
+                        .button.destructive
+                        .hoverBackground,
                   },
-              },
-          }),
+
+                  '&:active': {
+                    color:
+                      semanticColors.dark
+                        .button.destructive
+                        .pressedForeground,
+
+                    borderColor:
+                      semanticColors.dark
+                        .button.destructive
+                        .pressedForeground,
+
+                    backgroundColor:
+                      'transparent',
+                  },
+
+                  [`&.${buttonClasses.disabled}`]:
+                    {
+                      color:
+                        semanticColors.dark
+                          .button.disabled
+                          .foreground,
+
+                      borderColor:
+                        semanticColors.dark
+                          .button.disabled
+                          .border,
+
+                      backgroundColor:
+                        semanticColors.dark
+                          .button.disabled
+                          .background,
+                    },
+
+                  [`&.${buttonClasses.loading}.${buttonClasses.disabled}`]:
+                    {
+                      color:
+                        semanticColors.dark
+                          .button.destructive
+                          .loading.foreground,
+
+                      borderColor:
+                        semanticColors.dark
+                          .button.destructive
+                          .loading.border,
+
+                      backgroundColor:
+                        semanticColors.dark
+                          .button.destructive
+                          .loading.background,
+
+                      boxShadow:
+                        'none',
+                    },
+                },
+            },
+          ),
         }),
 
-        /**
-         * Large
-         *
-         * 44px → 2.75rem
-         * 16px / 28px → 1rem / 1.75rem
-         */
         sizeLarge: {
           height: '2.75rem',
           fontSize: '1rem',
           lineHeight: '1.75rem',
         },
 
-        /**
-         * Medium
-         *
-         * 40px → 2.5rem
-         * 14px / 24px → 0.875rem / 1.5rem
-         */
         sizeMedium: {
           height: '2.5rem',
           fontSize: '0.875rem',
           lineHeight: '1.5rem',
         },
 
-        /**
-         * Small
-         *
-         * 32px → 2rem
-         * 12px / 24px → 0.75rem / 1.5rem
-         */
         sizeSmall: {
           height: '2rem',
           fontSize: '0.75rem',
           lineHeight: '1.5rem',
         },
 
-        /**
-         * Start icon
-         *
-         * ULTRUS spacing token:
-         * spacing[4] → 0.25rem → 4px
-         */
         startIcon: {
-          marginRight: spacing[4],
+          marginRight:
+            spacing[4],
 
           '& > *:nth-of-type(1)': {
             fontSize: '1.5rem',
@@ -982,14 +1456,9 @@ export const theme = createTheme({
           },
         },
 
-        /**
-         * End icon
-         *
-         * ULTRUS spacing token:
-         * spacing[4] → 0.25rem → 4px
-         */
         endIcon: {
-          marginLeft: spacing[4],
+          marginLeft:
+            spacing[4],
 
           '& > *:nth-of-type(1)': {
             fontSize: '1.5rem',
@@ -998,10 +1467,6 @@ export const theme = createTheme({
           },
         },
 
-        /**
-         * MUI CircularProgress loading indicator
-         * inherits the Button foreground colour.
-         */
         loadingIndicator: {
           color: 'inherit',
         },

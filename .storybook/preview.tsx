@@ -1,47 +1,85 @@
-import type { Preview } from '@storybook/react-vite'
-import { CssBaseline } from '@mui/material'
-import { ThemeProvider } from '@mui/material/styles'
+import type {
+  Preview,
+} from '@storybook/react-vite'
 
-import { loadMaterialSymbols } from '../src/icons/loadMaterialSymbols'
-import { theme } from '../src/theme/theme'
+import {
+  CssBaseline,
+} from '@mui/material'
+
+import {
+  ThemeProvider,
+} from '@mui/material/styles'
+
+import {
+  loadMaterialSymbols,
+} from '../src/icons/loadMaterialSymbols'
+
+import {
+  theme,
+} from '../src/theme/theme'
+
 import '../src/index.css'
 
 loadMaterialSymbols()
 
 const ultrusViewports = {
   mobile: {
-    name: 'ULTRUS Mobile',
+    name:
+      'ULTRUS Mobile',
+
     styles: {
-      width: '390px',
-      height: '844px',
+      width:
+        '390px',
+
+      height:
+        '844px',
     },
-    type: 'mobile',
+
+    type:
+      'mobile',
   },
 
   tablet: {
-    name: 'ULTRUS Tablet',
+    name:
+      'ULTRUS Tablet',
+
     styles: {
-      width: '768px',
-      height: '1024px',
+      width:
+        '768px',
+
+      height:
+        '1024px',
     },
-    type: 'tablet',
+
+    type:
+      'tablet',
   },
 
   desktop: {
-    name: 'ULTRUS Desktop',
+    name:
+      'ULTRUS Desktop',
+
     styles: {
-      width: '1440px',
-      height: '900px',
+      width:
+        '1440px',
+
+      height:
+        '900px',
     },
-    type: 'desktop',
+
+    type:
+      'desktop',
   },
 }
 
 const preview: Preview = {
   decorators: [
     (Story) => (
-      <ThemeProvider theme={theme}>
+      <ThemeProvider
+        theme={theme}
+      >
         <CssBaseline />
+
         <Story />
       </ThemeProvider>
     ),
@@ -49,7 +87,8 @@ const preview: Preview = {
 
   parameters: {
     viewport: {
-      options: ultrusViewports,
+      options:
+        ultrusViewports,
     },
 
     options: {
@@ -61,6 +100,7 @@ const preview: Preview = {
           [
             'Typography',
             'Colors',
+            'Spacing',
             'Shape',
             'Icons',
             '*',
@@ -68,9 +108,15 @@ const preview: Preview = {
 
           'Components',
           [
-            'Button',
-            'Icon Button',
+            'Buttons',
+            [
+              'Button',
+              'Icon Button',
+              '*',
+            ],
+
             'Select',
+
             '*',
           ],
 
@@ -83,8 +129,11 @@ const preview: Preview = {
 
     controls: {
       matchers: {
-        color: /(background|color)$/i,
-        date: /Date$/i,
+        color:
+          /(background|color)$/i,
+
+        date:
+          /Date$/i,
       },
     },
   },
