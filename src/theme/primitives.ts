@@ -296,4 +296,5 @@ export const primitives = {
   },
 } as const
 
-export type PrimitivePalette = typeof primitives
+export type PrimitivePalette =
+  typeof primitives

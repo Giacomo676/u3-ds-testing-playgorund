@@ -1,0 +1,154 @@
+import {
+  Meta,
+  Canvas,
+} from '@storybook/addon-docs/blocks'
+
+import * as IconButtonStories from './UltrusIconButton.stories'
+
+<Meta
+  of={IconButtonStories}
+  name="Change log"
+/>
+
+# Icon Button — Change log
+
+A record of design and implementation changes made to the ULTRUS Icon Button component.
+
+This page is intended to help designers and engineers understand how the ULTRUS Icon Button differs from the default MUI IconButton and how the component evolves over time.
+
+---
+
+## 02/09/2026
+
+### Icon Button introduced
+
+The first ULTRUS Icon Button implementation has been added to the 3.0 playground.
+
+Two variants are currently available:
+
+- **Solid**
+- **Minimal**
+
+Three sizes are available:
+
+| Size | Button size | Icon size |
+| --- | ---: | ---: |
+| Large | 44px | 24px |
+| Medium | 40px | 24px |
+| Small | 32px | 16px |
+
+---
+
+## Solid
+
+The Solid variant uses a persistent circular container.
+
+<Canvas of={IconButtonStories.Solid} />
+
+### Enabled
+
+The Solid Button uses:
+
+- White 100% background
+- Secondary Gray 500 outline
+
+### Hovered
+
+Hover uses:
+
+- Secondary Gray 100 background
+- Secondary Gray 500 outline
+- **Elevation 7**
+
+### Focused
+
+Focused uses:
+
+- White 100% background
+- Secondary Gray 500 inner outline
+- Primary Red 900 dashed outer focus ring
+- no elevation
+
+### Pressed
+
+Pressed uses the same visual treatment as Enabled.
+
+### Disabled
+
+Disabled uses:
+
+- Secondary Gray 200 background
+- Secondary Gray 500 icon
+- no visible outline
+- no elevation
+
+---
+
+## Minimal
+
+The Minimal variant removes the persistent circular container.
+
+<Canvas of={IconButtonStories.Minimal} />
+
+### Enabled
+
+Enabled uses a transparent background and transparent outline.
+
+### Hovered
+
+Hover introduces:
+
+- Secondary Gray 100 background
+- transparent outline
+- **Elevation 7**
+
+### Focused
+
+Focused remains transparent and uses the Primary Red 900 dashed outer focus ring.
+
+### Pressed
+
+Pressed returns to the same visual treatment as Enabled.
+
+### Disabled
+
+Disabled remains transparent and uses Secondary Gray 500 for the icon.
+
+---
+
+## Sizes
+
+The Icon Button sizes align with the standard Button sizing system.
+
+<Canvas of={IconButtonStories.Sizes} />
+
+### Large
+
+- Container: 44 × 44px
+- Icon: 24 × 24px
+
+### Medium
+
+- Container: 40 × 40px
+- Icon: 24 × 24px
+
+### Small
+
+- Container: 32 × 32px
+- Icon: 16 × 16px
+
+The Small Material Symbol receives a minor optical vertical adjustment to ensure that the glyph appears visually centred.
+
+---
+
+## Accessibility
+
+Icon Buttons must always provide an accessible label because there is no visible text label available to assistive technologies.
+
+For example:
+
+```tsx
+<UltrusIconButton
+  icon="close"
+  aria-label="Close"
+/>
