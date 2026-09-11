@@ -110,6 +110,7 @@ const preview: Preview = {
           [
             'Buttons',
             [
+              'Change log',
               'Button',
               'Icon Button',
               '*',

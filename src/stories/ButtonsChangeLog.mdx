@@ -1,0 +1,244 @@
+import {
+  Meta,
+  Canvas,
+} from '@storybook/addon-docs/blocks'
+
+import * as ButtonStories from './UltrusButton.stories'
+import * as IconButtonStories from './UltrusIconButton.stories'
+
+<Meta title="Components/Buttons/Change log" />
+
+# Buttons — Change log
+
+A record of design and implementation changes made to the ULTRUS Button family.
+
+This page is intended to help designers and engineers understand what has changed from the existing MUI implementation and what is currently available in the ULTRUS 3.0 playground.
+
+---
+
+## 02/09/2026
+
+### Icon Button added
+
+The ULTRUS Icon Button has now been introduced alongside the standard Button component.
+
+Two variants are currently available:
+
+- **Solid** — used when the action needs a persistent visible container
+- **Minimal** — used for quieter secondary or supplementary actions
+
+Three sizes are available:
+
+| Size | Button size | Icon size |
+| --- | ---: | ---: |
+| Large | 44px | 24px |
+| Medium | 40px | 24px |
+| Small | 32px | 16px |
+
+### Solid Icon Button
+
+The Solid variant uses a visible circular container in all states.
+
+Current states:
+
+- Enabled
+- Hovered
+- Focused
+- Pressed
+- Disabled
+
+Hover uses **Elevation 7**.
+
+Focused uses the ULTRUS dashed focus treatment.
+
+Pressed returns to the same visual treatment as Enabled.
+
+<Canvas of={IconButtonStories.Solid} />
+
+### Minimal Icon Button
+
+The Minimal variant removes the persistent container and keeps the interaction visually quieter.
+
+The circular surface becomes visible on hover while focus uses the ULTRUS dashed focus treatment.
+
+<Canvas of={IconButtonStories.Minimal} />
+
+### Disabled Icon Button
+
+Disabled Solid Icon Buttons use the dedicated disabled semantic colours and remove elevation.
+
+<Canvas of={IconButtonStories.Disabled} />
+
+---
+
+## 02/09/2026
+
+### Button foundations updated
+
+The ULTRUS Button has been moved away from the default MUI visual treatment while retaining MUI as the underlying component and API.
+
+The major changes are documented below.
+
+### Shape
+
+The default MUI Button corner radius has been replaced with a fully rounded pill treatment.
+
+### Heights
+
+| Size | ULTRUS |
+| --- | ---: |
+| Large | 44px |
+| Medium | 40px |
+| Small | 32px |
+
+### Horizontal padding
+
+Large, Medium and Small Buttons use **16px horizontal padding**.
+
+### Vertical padding
+
+Large, Medium and Small Buttons use **8px vertical padding**.
+
+### Icon spacing
+
+The gap between the Button label and an optional start or end icon is:
+
+**4px**
+
+### Typography
+
+| Size | Font size | Line height |
+| --- | ---: | ---: |
+| Large | 16px | 28px |
+| Medium | 14px | 24px |
+| Small | 12px | 24px |
+
+---
+
+## Variants
+
+Four ULTRUS Button treatments are currently available:
+
+- **Contained**
+- **Outlined**
+- **Text**
+- **Destructive**
+
+### Contained
+
+<Canvas of={ButtonStories.Contained} />
+
+### Outlined
+
+<Canvas of={ButtonStories.Outlined} />
+
+### Text
+
+<Canvas of={ButtonStories.Text} />
+
+### Destructive
+
+<Canvas of={ButtonStories.Destructive} />
+
+---
+
+## Interaction changes
+
+The MUI ripple interaction has been removed globally.
+
+### Hover
+
+Buttons use **Elevation 7** on hover.
+
+### Focus
+
+Keyboard focus uses the ULTRUS dashed focus outline.
+
+Elevation is removed while focused.
+
+### Pressed
+
+Pressed Buttons do not use elevation.
+
+---
+
+## Contained colour update
+
+The primary Contained Button colour has been updated.
+
+| State | Primary Red |
+| --- | --- |
+| Enabled | 950 — `#1A000B` |
+| Hover | 800 — `#5B0428` |
+| Pressed | 950 — `#1A000B` |
+
+---
+
+## Loading Buttons
+
+Loading is treated as an inactive interaction state while retaining enough visual relationship to the original Button variant.
+
+The Button is functionally disabled while loading.
+
+### Without an icon
+
+When no start or end icon is present:
+
+- the Button label is visually hidden
+- the original Button width is retained
+- the loading spinner is centred
+
+### Start icon
+
+When a start icon exists, the loading spinner replaces the start icon while the label remains visible.
+
+### End icon
+
+When an end icon exists, the loading spinner replaces the end icon while the label remains visible.
+
+### Loading colours
+
+#### Contained
+
+Contained Loading uses:
+
+- Primary Red 950
+- White 40% overlay
+
+#### Outlined
+
+Outlined Loading uses:
+
+- Secondary enabled surface
+- Black 4% background treatment
+- White 70% treatment over the foreground and stroke
+
+#### Text
+
+Text Loading uses a White 60% treatment over the text/icon colour.
+
+#### Destructive
+
+Destructive Loading uses:
+
+- Secondary enabled surface
+- Black 4% background treatment
+- White 70% treatment over the destructive foreground and stroke
+
+---
+
+## Disabled
+
+Disabled Buttons use the shared ULTRUS disabled semantic colours.
+
+<Canvas of={ButtonStories.Disabled} />
+
+---
+
+## Implementation principle
+
+ULTRUS continues to use MUI as the underlying component framework.
+
+**MUI owns the component API and behaviour. ULTRUS owns the visual language, semantic tokens, approved variants and design-system defaults.**
+
+This allows product teams to retain the flexibility of MUI while avoiding repeated local design decisions.
